@@ -1,0 +1,22 @@
+numExpanded = numExpanded + 1;
+     current_node=[i,j];
+     south_node=[i+1,j];
+     north_node=[i-1,j];
+     east_node=[i,j+1];
+     west_node=[i,j-1];
+     neighbourhood=[south_node;north_node;east_node;west_node];
+     for k=1:4
+         
+         if( (neighbourhood(k,1)>0 && neighbourhood(k,2)>0) && (neighbourhood(k,1)<=nrows && neighbourhood(k,2)<=ncols))
+             
+             if( map(neighbourhood(k,1),neighbourhood(k,2)) ~=3 && map(neighbourhood(k,1),neighbourhood(k,2)) ~=2 && map(neighbourhood(k,1),neighbourhood(k,2)) ~=5 || map(neighbourhood(k,1),neighbourhood(k,2)) == 6)
+
+                 if(distanceFromStart(neighbourhood(k,1),neighbourhood(k,2)) >  1+sum(abs(start_coords-current_node)) || map(neighbourhood(k,1),neighbourhood(k,2)) == 6)
+                    map(neighbourhood(k,1),neighbourhood(k,2))=4;
+                     distanceFromStart(neighbourhood(k,1),neighbourhood(k,2))=1+sum(abs(start_coords-current_node));
+                    parent(neighbourhood(k,1),neighbourhood(k,2))=sub2ind(size(map),current);
+                    map(neighbourhood(k,1),neighbourhood(k,2))=3;
+                end
+            end
+        end
+    end
